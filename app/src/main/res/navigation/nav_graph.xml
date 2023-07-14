@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/SplashFragment">
+
+    <fragment
+        android:id="@+id/SplashFragment"
+        android:name="com.example.webviewtest.SplashFragment"
+        android:label="@string/Splash_fragment_label"
+        tools:layout="@layout/splash_fragment">
+
+        <action
+            android:id="@+id/action_SplashFragment_to_QuizStartFragment"
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"
+            app:destination="@id/QuizStartFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/NoInternetFragment"
+        android:name="com.example.webviewtest.NoInternetFragment"
+        android:label="@string/No_Internet_Fragment_label"
+        tools:layout="@layout/no_internet_fragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/QuizStartFragment"
+        android:name="com.example.webviewtest.QuizStartFragment"
+        android:label="@string/Quiz_Start_Fragment_label"
+        tools:layout="@layout/quiz_start_fragment">
+        <action
+            android:id="@+id/action_Quiz_Start_Fragment_to_Quiz_Fragment"
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"
+            app:destination="@id/QuizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/WebViewFragment"
+        android:name="com.example.webviewtest.WebViewFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/web_view_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/QuizFragment"
+        android:name="com.example.webviewtest.QuizFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/quiz_layout"
+        >
+
+        <action
+            android:id="@+id/action_QuizFragment_to_ResultFragment"
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"
+            app:destination="@id/ResultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ResultFragment"
+        android:name="com.example.webviewtest.ResultFragment"
+        android:label="@string/result_fragment_label"
+        tools:layout="@layout/result_fragment">
+
+        <action
+            android:id="@+id/action_ResultFragment_to_QuizStartFragment"
+            app:enterAnim="@anim/alpha_in"
+            app:exitAnim="@anim/alpha_out"
+            app:popEnterAnim="@anim/alpha_in"
+            app:popExitAnim="@anim/alpha_out"
+            app:destination="@id/QuizStartFragment" />
+    </fragment>
+
+    <action
+        android:id="@+id/NoInternetFragment_Global"
+        app:enterAnim="@anim/alpha_in"
+        app:exitAnim="@anim/alpha_out"
+        app:popEnterAnim="@anim/alpha_in"
+        app:popExitAnim="@anim/alpha_out"
+        app:destination="@id/NoInternetFragment" />
+
+    <action
+        android:id="@+id/WebViewFragment_global"
+        app:enterAnim="@anim/alpha_in"
+        app:exitAnim="@anim/alpha_out"
+        app:popEnterAnim="@anim/alpha_in"
+        app:popExitAnim="@anim/alpha_out"
+        app:destination="@id/WebViewFragment" />
+
+
+</navigation>
