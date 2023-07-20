@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.webviewtest'
+    namespace 'ennbose.sinewers'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.webviewtest"
+        applicationId "ennbose.sinewers"
         minSdk 21
         targetSdk 33
         versionCode 1
