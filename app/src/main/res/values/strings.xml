@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bahis</string>
+    <string name="app_name">H2BET</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -14,65 +14,67 @@
     <string name="Congrats3">Well, it was not that important of a test anyway. Your score is</string>
 
 
-    <string name="Question1">What country national team has never won an International match?</string>
-    <string name="q1a1">Liechtenstein</string>
-    <string name="q1a2">Luxembourg</string>
-    <string name="q1a3">Botswana</string>
-    <string name="q1a4">Morocco</string>
+    <string name="Question1">What international team play in Wembley?</string>
+    <string name="q1a1">Denmark</string>
+    <string name="q1a2">Scotland</string>
+    <string name="q1a3">England</string>
+    <string name="q1a4">Iceland</string>
 
-    <string name="Question2">What country did the penalty kick come from?</string>
-    <string name="q2a1">USSR</string>
-    <string name="q2a2">Argentina</string>
-    <string name="q2a3">England</string>
-    <string name="q2a4">Ireland</string>
+    <string name="Question2">Which of these teams isn\'t from London?</string>
+    <string name="q2a1">Chelsea</string>
+    <string name="q2a2">Wolves</string>
+    <string name="q2a3">West Ham</string>
+    <string name="q2a4">Arsenal</string>
 
-    <string name="Question3">At what second was the fastest own goal?</string>
-    <string name="q3a1">17</string>
-    <string name="q3a2">38</string>
-    <string name="q3a3">116</string>
-    <string name="q3a4">78</string>
+    <string name="Question3">Megan Rapinoe has won virtually everything with which international team?</string>
+    <string name="q3a1">Japan</string>
+    <string name="q3a2">England</string>
+    <string name="q3a3">Nigeria</string>
+    <string name="q3a4">USA</string>
 
-    <string name="Question4"> How many hours did the longest match in soccer history take?</string>
-    <string name="q4a1">10</string>
-    <string name="q4a2">15</string>
-    <string name="q4a3">4</string>
-    <string name="q4a4">36</string>
+    <string name="Question4"> How many lions are on the England badge?</string>
+    <string name="q4a1">5 feet</string>
+    <string name="q4a2">7 feet</string>
+    <string name="q4a3">6 feet</string>
+    <string name="q4a4">8 feet</string>
 
-    <string name="Question5">In which of these countries is soccer banned?</string>
-    <string name="q5a1">Cuba</string>
-    <string name="q5a2">Afghanistan</string>
-    <string name="q5a3">Madagascar</string>
-    <string name="q5a4">Pakistan</string>
+    <string name="Question5">Which team play at Anfield?</string>
+    <string name="q5a1">Manchester City</string>
+    <string name="q5a2">Liverpool</string>
+    <string name="q5a3">Aston Villa</string>
+    <string name="q5a4">Everton</string>
 
-    <string name="Question6">The first ever soccer club - Sheffield was originally</string>
-    <string name="q6a1">a Golf-club</string>
-    <string name="q6a2">formed from prisoners</string>
-    <string name="q6a3">a Cricket club</string>
-    <string name="q6a4">filled with Women</string>
+    <string name="Question6">How many lions are on the England badge?</string>
+    <string name="q6a1">1</string>
+    <string name="q6a2">2</string>
+    <string name="q6a3">3</string>
+    <string name="q6a4">there is none</string>
 
-    <string name="Question7"> What country soccer fans cause the most amount of damage?</string>
+    <string name="Question7"> Which international team does Paul Pogba play for?</string>
     <string name="q7a1">England</string>
-    <string name="q7a2">Spain</string>
-    <string name="q7a3">Russia</string>
-    <string name="q7a4">Germany</string>
+    <string name="q7a2">France</string>
+    <string name="q7a3">Brazil</string>
+    <string name="q7a4">Wales</string>
 
-    <string name="Question8"> How many own goals did Brazilian defender Pinheiro score during the season?</string>
-    <string name="q8a1">34</string>
-    <string name="q8a2">6</string>
-    <string name="q8a3">12</string>
-    <string name="q8a4">10</string>
+    <string name="Question8"> England have won the World Cup once. But in which year did they lift the trophy?</string>
+    <string name="q8a1">2000</string>
+    <string name="q8a2">1966</string>
+    <string name="q8a3">1994</string>
+    <string name="q8a4">1982</string>
 
-    <string name="Question9"> Shall we make some noise? What is the most powerful scream produced by fans in history?</string>
-    <string name="q9a1">130 decibels ~ the sound of an airplane at takeoff</string>
-    <string name="q9a2">114 decibels ~ sound emitted near a helicopter</string>
-    <string name="q9a3">140 decibels ~ the sound of a jet plane taking off</string>
-    <string name="q9a4">125 decibels ~ jackhammer sound (at 1m away)</string>
+    <string name="Question9"> How long is a game of professional football?</string>
+    <string name="q9a1">60 min</string>
+    <string name="q9a2">45 min</string>
+    <string name="q9a3">75 min</string>
+    <string name="q9a4">90 min</string>
 
-    <string name="Question10"> Who is currently the oldest acting soccer player?</string>
-    <string name="q10a1">Mark Schwarzer</string>
-    <string name="q10a2">Rogerio Ceni</string>
-    <string name="q10a3">Kazuyoshi Miura</string>
-    <string name="q10a4">Ruslan Adzhindzhal</string>
+    <string name="Question10"> How many times have Brazil won the World Cup?</string>
+    <string name="q10a1">0</string>
+    <string name="q10a2">2</string>
+    <string name="q10a3">4</string>
+    <string name="q10a4">5</string>
 
+    <string name="plusScore">+ 10 SCORE</string>
+    <string name="noScore">+ 0 SCORE</string>
 
 </resources>

@@ -1,9 +1,9 @@
-package ennbose.sinewers
+package com.h2bet.sportsapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.onesignal.OneSignal
-import ennbose.sinewers.databinding.ActivityMainBinding
+import com.h2bet.sportsapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {

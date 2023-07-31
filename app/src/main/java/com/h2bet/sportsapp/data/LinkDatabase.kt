@@ -1,4 +1,4 @@
-package ennbose.sinewers.data
+package com.h2bet.sportsapp.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

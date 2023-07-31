@@ -1,4 +1,4 @@
-package ennbose.sinewers
+package com.h2bet.sportsapp
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,6 +11,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.Uri
+import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -21,8 +22,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
+import android.webkit.SslErrorHandler
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
@@ -33,7 +39,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import ennbose.sinewers.databinding.WebViewFragmentBinding
+import com.h2bet.sportsapp.databinding.WebViewFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -65,9 +71,6 @@ class WebViewFragment : Fragment() {
 
 
 
-
-
-
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,14 +78,16 @@ class WebViewFragment : Fragment() {
     ): View {
 
         _binding = WebViewFragmentBinding.inflate(inflater, container, false)
-
         webView = binding.webview
+
         webView!!.settings.javaScriptEnabled = true
-        webView!!.webViewClient = WebViewClient()
+        webView!!.webViewClient = WebChekerClient()
         webView!!.webChromeClient=ChromeClient()
         webView!!.settings.domStorageEnabled = true
         webView!!.settings.javaScriptCanOpenWindowsAutomatically = true
 
+        webView!!.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)
         webView!!.settings.loadWithOverviewMode = true
@@ -91,11 +96,14 @@ class WebViewFragment : Fragment() {
         webView!!.settings.setSupportZoom(false)
         webView!!.settings.allowFileAccess = true
         webView!!.settings.allowContentAccess = true
-        modelProvider.checkLink()
+//        modelProvider.checkLink()
 
         if (savedInstanceState != null)
             webView?.restoreState(savedInstanceState)
-        else modelProvider.link?.let { webView?.loadUrl(it) }
+        webView?.loadUrl(modelProvider.baseUrl)
+//        else modelProvider.link?.let {
+//            webView?.loadUrl(it)
+//        }
 
         return binding.root
     }
@@ -158,8 +166,38 @@ class WebViewFragment : Fragment() {
         ) == PackageManager.PERMISSION_GRANTED
 
 
+    inner class WebChekerClient: WebViewClient(){
+        override fun onReceivedHttpError(
+            view: WebView,
+            request: WebResourceRequest?,
+            errorResponse: WebResourceResponse
+        ) {
+        controller?.navigate(R.id.QuizStartFragment)
+        }
+
+//        override fun onReceivedError(
+//            view: WebView?,
+//            request: WebResourceRequest?,
+//            error: WebResourceError?
+//        ) {
+//            controller?.navigate(R.id.QuizStartFragment)
+//        }
+//
+//        override fun onReceivedError(
+//            view: WebView?,
+//            errorCode: Int,
+//            description: String?,
+//            failingUrl: String?
+//        ){
+//            controller?.navigate(R.id.QuizStartFragment)
+//        }
+//        override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?){
+//            controller?.navigate(R.id.QuizStartFragment)
+//        }
+    }
 
     inner class ChromeClient : WebChromeClient() {
+
         // For Android 5.0
         override fun onShowFileChooser(
             view: WebView,

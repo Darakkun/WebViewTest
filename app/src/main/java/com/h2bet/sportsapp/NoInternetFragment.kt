@@ -1,4 +1,4 @@
-package ennbose.sinewers
+package com.h2bet.sportsapp
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import ennbose.sinewers.databinding.NoInternetFragmentBinding
+import com.h2bet.sportsapp.databinding.NoInternetFragmentBinding
 
 
 class NoInternetFragment : Fragment() {

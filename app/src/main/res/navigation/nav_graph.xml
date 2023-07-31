@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/SplashFragment"
-        android:name="ennbose.sinewers.SplashFragment"
+        android:name="com.h2bet.sportsapp.SplashFragment"
         android:label="@string/Splash_fragment_label"
         tools:layout="@layout/splash_fragment">
 
@@ -22,14 +22,14 @@
 
     <fragment
         android:id="@+id/NoInternetFragment"
-        android:name="ennbose.sinewers.NoInternetFragment"
+        android:name="com.h2bet.sportsapp.NoInternetFragment"
         android:label="@string/No_Internet_Fragment_label"
         tools:layout="@layout/no_internet_fragment">
     </fragment>
 
     <fragment
         android:id="@+id/QuizStartFragment"
-        android:name="ennbose.sinewers.QuizStartFragment"
+        android:name="com.h2bet.sportsapp.QuizStartFragment"
         android:label="@string/Quiz_Start_Fragment_label"
         tools:layout="@layout/quiz_start_fragment">
         <action
@@ -43,14 +43,14 @@
 
     <fragment
         android:id="@+id/WebViewFragment"
-        android:name="ennbose.sinewers.WebViewFragment"
+        android:name="com.h2bet.sportsapp.WebViewFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/web_view_fragment">
 
     </fragment>
     <fragment
         android:id="@+id/QuizFragment"
-        android:name="ennbose.sinewers.QuizFragment"
+        android:name="com.h2bet.sportsapp.QuizFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/quiz_layout"
         >
@@ -66,7 +66,7 @@
 
     <fragment
         android:id="@+id/ResultFragment"
-        android:name="ennbose.sinewers.ResultFragment"
+        android:name="com.h2bet.sportsapp.ResultFragment"
         android:label="@string/result_fragment_label"
         tools:layout="@layout/result_fragment">
 

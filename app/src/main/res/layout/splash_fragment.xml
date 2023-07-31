@@ -7,14 +7,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/corner"
+        android:src="@drawable/main_bacground"
         android:scaleType="centerCrop"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/grad"
-        android:alpha="0.75"
         />
 
     <TextView

@@ -1,4 +1,4 @@
-package ennbose.sinewers
+package com.h2bet.sportsapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 
-import ennbose.sinewers.databinding.ResultFragmentBinding
+import com.h2bet.sportsapp.databinding.ResultFragmentBinding
 
 class ResultFragment : Fragment() {
 
@@ -31,7 +31,7 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-        binding.score.text = modelProvider.score.toString() + "/10"
+        binding.score.text = modelProvider.score.toString() + "0/100"
         if (modelProvider.score < 5) binding.message.text = this.getString(R.string.Congrats3)
         else if (modelProvider.score in 6..8) binding.message.text =
             this.getString(R.string.Congrats2)

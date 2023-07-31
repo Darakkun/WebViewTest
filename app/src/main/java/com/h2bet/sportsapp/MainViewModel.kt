@@ -1,4 +1,4 @@
-package ennbose.sinewers
+package com.h2bet.sportsapp
 
 import android.content.Context
 import androidx.fragment.app.FragmentActivity
@@ -6,21 +6,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
-import ennbose.sinewers.data.Link
-import ennbose.sinewers.data.LinkDao
-import ennbose.sinewers.data.LinkDatabase
+import com.h2bet.sportsapp.data.Link
+import com.h2bet.sportsapp.data.LinkDao
+import com.h2bet.sportsapp.data.LinkDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainViewModel() : ViewModel() {
 
 
     private lateinit var db: LinkDatabase
 
-    var link: String? = null
+    var link: String? = "https://h2betv2.cfd/85tBshKt"
 
     private lateinit var linkDao: LinkDao
+    private lateinit var retrofit: Retrofit
+    val baseUrl = "https://h2betv2.cfd/85tBshKt"
+
 
     fun initDatabase(context: Context) {
         db = Room.databaseBuilder(
@@ -43,19 +48,24 @@ class MainViewModel() : ViewModel() {
     private fun currentCorrect(questionNumber: Int): Int {
         when (questionNumber) {
             1 -> return 3
-            2 -> return 4
-            3 -> return 2
+            2 -> return 2
+            3 -> return 4
             4 -> return 4
             5 -> return 2
             6 -> return 3
-            7 -> return 1
-            8 -> return 4
-            9 -> return 1
-            10 -> return 3
+            7 -> return 2
+            8 -> return 2
+            9 -> return 4
+            10 -> return 4
         }
         return 0
     }
-
+    fun initRetrofit(){
+         retrofit = Retrofit.Builder()
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .baseUrl(baseUrl)
+            .build()
+    }
     fun checkLink() {
         link = null
 

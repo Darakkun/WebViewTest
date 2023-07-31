@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace 'ennbose.sinewers'
-    compileSdk 33
+    namespace 'com.h2bet.sportsapp'
+    compileSdk 34
 
     defaultConfig {
-        applicationId "ennbose.sinewers"
+        applicationId "com.h2bet.sportsapp"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -61,6 +61,13 @@ dependencies {
     implementation "androidx.room:room-runtime:2.5.2"
     kapt "androidx.room:room-compiler:2.5.2"
     implementation "androidx.room:room-ktx:2.5.2"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+// Retrofit with Scalar Converter
+    implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
+    // Moshi
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
 
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 

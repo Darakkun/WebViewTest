@@ -1,4 +1,4 @@
-package ennbose.sinewers
+package com.h2bet.sportsapp
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
-import ennbose.sinewers.databinding.QuizLayoutBinding
+import com.h2bet.sportsapp.databinding.QuizLayoutBinding
 
 
 class QuizFragment : Fragment() {
@@ -61,6 +61,7 @@ class QuizFragment : Fragment() {
         var answer2 = ""
         var answer3 = ""
         var answer4 = ""
+        var imageId = 0
 
         when (currentQuestion) {
             2 -> {
@@ -69,6 +70,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q2a2)
                 answer3 = this.getString(R.string.q2a3)
                 answer4 = this.getString(R.string.q2a4)
+                imageId = R.drawable.quest2
             }
 
             3 -> {
@@ -77,6 +79,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q3a2)
                 answer3 = this.getString(R.string.q3a3)
                 answer4 = this.getString(R.string.q3a4)
+                imageId = R.drawable.quest3
             }
 
             4 -> {
@@ -85,6 +88,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q4a2)
                 answer3 = this.getString(R.string.q4a3)
                 answer4 = this.getString(R.string.q4a4)
+                imageId = R.drawable.quest4
             }
 
             5 -> {
@@ -93,6 +97,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q5a2)
                 answer3 = this.getString(R.string.q5a3)
                 answer4 = this.getString(R.string.q5a4)
+                imageId = R.drawable.quest5
             }
 
             6 -> {
@@ -101,6 +106,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q6a2)
                 answer3 = this.getString(R.string.q6a3)
                 answer4 = this.getString(R.string.q6a4)
+                imageId = R.drawable.quest6
             }
 
             7 -> {
@@ -109,6 +115,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q7a2)
                 answer3 = this.getString(R.string.q7a3)
                 answer4 = this.getString(R.string.q7a4)
+                imageId = R.drawable.quest7
             }
 
             8 -> {
@@ -117,6 +124,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q8a2)
                 answer3 = this.getString(R.string.q8a3)
                 answer4 = this.getString(R.string.q8a4)
+                imageId = R.drawable.quest8
             }
 
             9 -> {
@@ -125,6 +133,7 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q9a2)
                 answer3 = this.getString(R.string.q9a3)
                 answer4 = this.getString(R.string.q9a4)
+                imageId = R.drawable.quest9
             }
 
             10 -> {
@@ -133,16 +142,19 @@ class QuizFragment : Fragment() {
                 answer2 = this.getString(R.string.q10a2)
                 answer3 = this.getString(R.string.q10a3)
                 answer4 = this.getString(R.string.q10a4)
+                imageId = R.drawable.quest10
             }
 
             else -> findNavController().navigate(R.id.action_QuizFragment_to_ResultFragment)
         }
 
-        binding.question.text = textQuestion
+        binding.questionText.text = textQuestion
         binding.answer1Text.text = answer1
         binding.answer2Text.text = answer2
         binding.answer3Text.text = answer3
         binding.answer4Text.text = answer4
+        binding.mainImage.setImageResource(imageId)
+        binding.scoreText.text = "Score "+modelProvider.score+"0"
     }
 
     private val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

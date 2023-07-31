@@ -1,163 +1,288 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/corner"
-        android:scaleType="centerCrop"
-        />
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/grad"
-        android:alpha="0.75"
-        />
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/question"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="50dp"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_bacground" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        app:strokeColor="@color/cardStroke"
+        app:strokeWidth="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:textSize="28sp"
-        android:textAlignment="center"
-        android:autoSizeTextType="uniform"
-        android:text="@string/Question1"
-        android:textColor="@color/white"
+        >
 
-        />
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="130dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:text="Score:0"
+            android:textAlignment="center"
+            android:fontFamily="@font/hermeneus"
+            android:background="@color/textBoxColor"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/questImage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:strokeColor="@color/cardStroke"
+        app:strokeWidth="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/question"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="25dp"
-        android:orientation="vertical"
-        android:weightSum="2"
-        android:alpha="0.75" >
+        app:layout_constraintTop_toBottomOf="@id/score"
+        >
+
+        <ImageView
+            android:id="@+id/mainImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/quest1" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="25dp"
+        app:strokeColor="@color/cardStrokeRed"
+        app:strokeWidth="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/questImage"
+        >
+
+        <TextView
+            android:id="@+id/questionText"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/Question1"
+            android:textAlignment="center"
+            android:background="@color/textBoxColor"
+            android:textColor="@color/black"
+            android:fontFamily="@font/hermeneus"
+            android:gravity="center"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:alpha="0.80"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/questionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="10dp"
+        app:strokeColor="@color/cardStroke"
+        app:strokeWidth="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/questImage"
+        >
+
+        <TextView
+            android:id="@+id/questionTitleText"
+            android:layout_width="130dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="5dp"
+            android:text="Question"
+            android:textAlignment="center"
+            android:background="@color/textBoxColor"
+            android:fontFamily="@font/hermeneus"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/question"
+            app:layout_constraintBottom_toTopOf="@id/scorePlus"
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/answer1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    app:strokeColor="@color/cardStroke"
+                    app:strokeWidth="6dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:cardBackgroundColor="@color/questBox"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/answer1Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/hermeneus"
+                        android:text="@string/q1a1"
+                        android:background="@color/textBoxColor"
+                        android:textColor="@color/black"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/answer2"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    app:strokeColor="@color/cardStroke"
+                    app:strokeWidth="6dp"
+                    app:cardBackgroundColor="@color/questBox"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true">
+                <TextView
+                    android:id="@+id/answer2Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/hermeneus"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="@string/q1a2"
+                    android:background="@color/textBoxColor"
+                    android:textColor="@color/black"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="15dp"
             android:weightSum="2"
-            android:layout_marginBottom="10dp"
             android:layout_weight="1">
-
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/answer1"
+                android:id="@+id/answer3"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                app:strokeWidth="4dp"
-                app:strokeColor="@color/black"
+                android:layout_height="50dp"
+                app:strokeColor="@color/cardStroke"
+                app:strokeWidth="6dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 app:cardBackgroundColor="@color/questBox"
                 android:layout_weight="1"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true">
-
                 <TextView
-                    android:id="@+id/answer1Text"
+                    android:id="@+id/answer3Text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/hermeneus"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:text="@string/q1a1"
-                    android:textColor="@color/white"
+                    android:text="@string/q1a3"
+                    android:background="@color/textBoxColor"
+                    android:textColor="@color/black"
                     />
             </com.google.android.material.card.MaterialCardView>
+
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/answer2"
+                android:id="@+id/answer4"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                app:strokeWidth="4dp"
-                app:strokeColor="@color/black"
+                android:layout_height="50dp"
+                app:strokeColor="@color/cardStroke"
+                app:strokeWidth="6dp"
                 app:cardBackgroundColor="@color/questBox"
-                android:layout_weight="1"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true">
-            <TextView
-                android:id="@+id/answer2Text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:text="@string/q1a2"
-                android:textColor="@color/white"
-                />
-        </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/answer4Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/hermeneus"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="@string/q1a4"
+                    android:background="@color/textBoxColor"
+                    android:textColor="@color/black"
+                    />
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="15dp"
-        android:weightSum="2"
-        android:layout_weight="1">
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/answer3"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            app:strokeWidth="4dp"
-            app:strokeColor="@color/black"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:cardBackgroundColor="@color/questBox"
-            android:layout_weight="1"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true">
-            <TextView
-                android:id="@+id/answer3Text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:text="@string/q1a3"
-                android:textColor="@color/white"
-                />
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/answer4"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            app:strokeWidth="4dp"
-            app:strokeColor="@color/black"
-            app:cardBackgroundColor="@color/questBox"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true">
-            <TextView
-                android:id="@+id/answer4Text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:text="@string/q1a4"
-                android:textColor="@color/white"
-                />
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/scorePlus"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        android:textColor="@color/cardStrokeRed"
+        android:fontFamily="@font/hermeneus"
+        android:textStyle="bold"
+        android:text="@string/noScore"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@id/questNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    </LinearLayout>
-
-
+    <TextView
+        android:id="@+id/questNumber"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/cardStrokeRed"
+        android:text="1/10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 

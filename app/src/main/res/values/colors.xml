@@ -3,4 +3,11 @@
     <color name="black">#000000</color>
     <color name="questBox">#20003F</color>
     <color name="white">#ffffff</color>
+    <color name="buttonGreen">#1BCEB8</color>
+    <color name="textGreen">#0D5A60</color>
+    <color name="buttonGreenBorder">#76FFE5</color>
+    <color name="cardStroke">#555FF6</color>
+    <color name="textBoxColor">#A2B3FE</color>
+    <color name="cardStrokeRed">#ED084C</color>
+
 </resources>
