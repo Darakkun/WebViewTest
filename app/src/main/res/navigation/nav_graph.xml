@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/QuizStartFragment"
-        android:name="com.h2bet.sportsapp.QuizStartFragment"
+        android:name="com.h2bet.sportsapp.quiz.QuizStartFragment"
         android:label="@string/Quiz_Start_Fragment_label"
         tools:layout="@layout/quiz_start_fragment">
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/QuizFragment"
-        android:name="com.h2bet.sportsapp.QuizFragment"
+        android:name="com.h2bet.sportsapp.quiz.QuizFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/quiz_layout"
         >
@@ -66,7 +66,7 @@
 
     <fragment
         android:id="@+id/ResultFragment"
-        android:name="com.h2bet.sportsapp.ResultFragment"
+        android:name="com.h2bet.sportsapp.quiz.ResultFragment"
         android:label="@string/result_fragment_label"
         tools:layout="@layout/result_fragment">
 

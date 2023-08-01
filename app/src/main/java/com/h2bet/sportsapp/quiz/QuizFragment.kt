@@ -1,4 +1,4 @@
-package com.h2bet.sportsapp
+package com.h2bet.sportsapp.quiz
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.h2bet.sportsapp.MainViewModel
+import com.h2bet.sportsapp.R
 import com.h2bet.sportsapp.databinding.QuizLayoutBinding
 
 
