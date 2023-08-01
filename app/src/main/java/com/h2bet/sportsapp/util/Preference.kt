@@ -1,4 +1,4 @@
-package com.h2bet.sportsapp
+package com.h2bet.sportsapp.util
 
 import android.content.Context
 import android.content.SharedPreferences

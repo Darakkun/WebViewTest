@@ -22,8 +22,6 @@ class MainViewModel() : ViewModel() {
     var link: String = ""
 
     private lateinit var linkDao: LinkDao
-//    private lateinit var retrofit: Retrofit
-//    val baseUrl = "https://h2betv2.cfd/85tBshKt"
 
 
     fun initDatabase(context: Context) {

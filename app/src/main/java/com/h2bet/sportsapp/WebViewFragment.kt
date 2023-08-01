@@ -41,7 +41,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.h2bet.sportsapp.Preference.cokies
+import com.h2bet.sportsapp.util.Preference
+import com.h2bet.sportsapp.util.Preference.cokies
 import com.h2bet.sportsapp.databinding.WebViewFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,10 +56,10 @@ class WebViewFragment : Fragment() {
 
     private var _binding: WebViewFragmentBinding? = null
     private val modelProvider: MainViewModel by lazy { MainViewModel.viewModelWithFragment(this@WebViewFragment.requireActivity()) }
-    private val cookieManager: CookieManager by lazy { CookieManager.getInstance() }
-    private var sharedPreferences: SharedPreferences? = null
+    private val kookiManager: CookieManager by lazy { CookieManager.getInstance() }
+    private var pref: SharedPreferences? = null
     private val binding get() = _binding!!
-    private var webView: WebView? = null
+    private var betLayout: WebView? = null
     var controller: NavController? = null
     private var mCapturedImageURI: Uri? = null
     private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
@@ -67,8 +68,8 @@ class WebViewFragment : Fragment() {
 
     private val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (webView?.canGoBack() == true) {
-                webView?.goBack()
+            if (betLayout?.canGoBack() == true) {
+                betLayout?.goBack()
             }
         }
     }
@@ -82,33 +83,33 @@ class WebViewFragment : Fragment() {
     ): View {
 
         _binding = WebViewFragmentBinding.inflate(inflater, container, false)
-        webView = binding.webview
-        sharedPreferences = Preference.getPrefeence(this@WebViewFragment.requireContext())
-        webView!!.settings.domStorageEnabled= true
-        webView!!.settings.javaScriptEnabled = true
-        webView!!.settings.useWideViewPort = true
-        webView!!.settings.databaseEnabled = true
-        webView!!.settings.javaScriptCanOpenWindowsAutomatically = true
-        webView!!.settings.cacheMode = WebSettings.LOAD_DEFAULT
+        betLayout = binding.webview
+
+        betLayout!!.settings.domStorageEnabled= true
+        betLayout!!.settings.javaScriptEnabled = true
+        betLayout!!.settings.useWideViewPort = true
+        betLayout!!.settings.databaseEnabled = true
+        betLayout!!.settings.javaScriptCanOpenWindowsAutomatically = true
+        betLayout!!.settings.cacheMode = WebSettings.LOAD_DEFAULT
 
         CookieManager.getInstance().setAcceptCookie(true)
+        pref = Preference.getPrefeence(this@WebViewFragment.requireContext())
+        kookiManager.setAcceptCookie(true)
+        kookiManager.setAcceptThirdPartyCookies(betLayout, true);
 
-        cookieManager.setAcceptCookie(true)
-        cookieManager.setAcceptThirdPartyCookies(webView, true);
-
-        webView!!.webViewClient = WebChekerClient()
-        webView!!.webChromeClient=ChromeClient()
+        betLayout!!.webViewClient = WebChekerClient()
+        betLayout!!.webChromeClient=ChromeClient()
 //        modelProvider.checkLink()
 
         if (savedInstanceState != null)
-            webView?.restoreState(savedInstanceState)
-       else webView?.loadUrl(modelProvider.link)
+            betLayout?.restoreState(savedInstanceState)
+       else betLayout?.loadUrl(modelProvider.link)
 
         return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        webView?.saveState(outState)
+        betLayout?.saveState(outState)
         super.onSaveInstanceState(outState)
     }
 
@@ -182,7 +183,7 @@ class WebViewFragment : Fragment() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            cookieManager.setCookie(url, sharedPreferences!!.cokies)
+            kookiManager.setCookie(url, pref!!.cokies)
         }
 
         override fun onRenderProcessGone(
@@ -197,7 +198,7 @@ class WebViewFragment : Fragment() {
             binding.protScreen.visibility=View.INVISIBLE
             super.onPageFinished(view, url)
             CookieManager.getInstance().flush();
-            sharedPreferences!!.cokies = cookieManager.getCookie(url)
+            pref!!.cokies = kookiManager.getCookie(url)
         }
 //        override fun onReceivedHttpError(
 //            view: WebView,

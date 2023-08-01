@@ -34,80 +34,76 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         binding.answer1.setOnClickListener {
-            if (modelProvider.checkCorrect(currentQuestion, 1)){
+            if (modelProvider.checkCorrect(currentQuestion, 1)) {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.correct))
                 binding.scorePlus.text = resources.getString(R.string.plusScore)
                 binding.answer1Text.setBackgroundColor(resources.getColor(R.color.correct))
-            }
-            else {
+            } else {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.wrong))
                 binding.scorePlus.text = resources.getString(R.string.noScore)
                 binding.answer1Text.setBackgroundColor(resources.getColor(R.color.wrong))
             }
-            binding.scorePlus.visibility=View.VISIBLE
+            binding.scorePlus.visibility = View.VISIBLE
             currentQuestion++
-            binding.answer1.isClickable=false
-            binding.answer2.isClickable=false
-            binding.answer3.isClickable=false
-            binding.answer4.isClickable=false
-            Handler().postDelayed({  nextQuestion() }, 2000)
+            binding.answer1.isClickable = false
+            binding.answer2.isClickable = false
+            binding.answer3.isClickable = false
+            binding.answer4.isClickable = false
+            Handler().postDelayed({ nextQuestion() }, 2000)
         }
         binding.answer2.setOnClickListener {
-            if (modelProvider.checkCorrect(currentQuestion, 2)){
+            if (modelProvider.checkCorrect(currentQuestion, 2)) {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.correct))
                 binding.scorePlus.text = resources.getString(R.string.plusScore)
                 binding.answer2Text.setBackgroundColor(resources.getColor(R.color.correct))
-            }
-            else {
+            } else {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.wrong))
                 binding.scorePlus.text = resources.getString(R.string.noScore)
                 binding.answer2Text.setBackgroundColor(resources.getColor(R.color.wrong))
             }
-            binding.scorePlus.visibility=View.VISIBLE
+            binding.scorePlus.visibility = View.VISIBLE
             currentQuestion++
-            binding.answer1.isClickable=false
-            binding.answer2.isClickable=false
-            binding.answer3.isClickable=false
-            binding.answer4.isClickable=false
-            Handler().postDelayed({  nextQuestion() }, 2000)
+            binding.answer1.isClickable = false
+            binding.answer2.isClickable = false
+            binding.answer3.isClickable = false
+            binding.answer4.isClickable = false
+            Handler().postDelayed({ nextQuestion() }, 2000)
         }
         binding.answer3.setOnClickListener {
-            if (modelProvider.checkCorrect(currentQuestion, 3)){
+            if (modelProvider.checkCorrect(currentQuestion, 3)) {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.correct))
                 binding.scorePlus.text = resources.getString(R.string.plusScore)
                 binding.answer3Text.setBackgroundColor(resources.getColor(R.color.correct))
-            }
-            else {
+            } else {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.wrong))
                 binding.scorePlus.text = resources.getString(R.string.noScore)
                 binding.answer3Text.setBackgroundColor(resources.getColor(R.color.wrong))
             }
-            binding.scorePlus.visibility=View.VISIBLE
+            binding.scorePlus.visibility = View.VISIBLE
             currentQuestion++
-            binding.answer1.isClickable=false
-            binding.answer2.isClickable=false
-            binding.answer3.isClickable=false
-            binding.answer4.isClickable=false
-            Handler().postDelayed({  nextQuestion() }, 2000)
+            binding.answer1.isClickable = false
+            binding.answer2.isClickable = false
+            binding.answer3.isClickable = false
+            binding.answer4.isClickable = false
+            Handler().postDelayed({ nextQuestion() }, 2000)
         }
         binding.answer4.setOnClickListener {
-            if (modelProvider.checkCorrect(currentQuestion, 4)){
+            if (modelProvider.checkCorrect(currentQuestion, 4)) {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.correct))
                 binding.scorePlus.text = resources.getString(R.string.plusScore)
                 binding.answer4Text.setBackgroundColor(resources.getColor(R.color.correct))
-            }
-            else {
+            } else {
                 binding.scorePlus.setTextColor(resources.getColor(R.color.wrong))
                 binding.scorePlus.text = resources.getString(R.string.noScore)
                 binding.answer4Text.setBackgroundColor(resources.getColor(R.color.wrong))
             }
-            binding.scorePlus.visibility=View.VISIBLE
+            binding.scorePlus.visibility = View.VISIBLE
             currentQuestion++
-            binding.answer1.isClickable=false
-            binding.answer2.isClickable=false
-            binding.answer3.isClickable=false
-            binding.answer4.isClickable=false
-            Handler().postDelayed({  nextQuestion() }, 2000)
+            binding.answer1.isClickable = false
+            binding.answer2.isClickable = false
+            binding.answer3.isClickable = false
+            binding.answer4.isClickable = false
+            Handler().postDelayed({ nextQuestion() }, 2000)
         }
 
     }
@@ -213,10 +209,10 @@ class QuizFragment : Fragment() {
 
 
 
-        binding.answer1.isClickable=true
-        binding.answer2.isClickable=true
-        binding.answer3.isClickable=true
-        binding.answer4.isClickable=true
+        binding.answer1.isClickable = true
+        binding.answer2.isClickable = true
+        binding.answer3.isClickable = true
+        binding.answer4.isClickable = true
 
         binding.questionText.text = textQuestion
         binding.answer1Text.text = answer1
@@ -224,9 +220,9 @@ class QuizFragment : Fragment() {
         binding.answer3Text.text = answer3
         binding.answer4Text.text = answer4
         binding.mainImage.setImageResource(imageId)
-        binding.scoreText.text = "Score "+modelProvider.score+"0"
-        binding.questNumber.text=currentQuestion.toString()+"/10"
-        binding.scorePlus.visibility=View.INVISIBLE
+        binding.scoreText.text = "Score " + modelProvider.score + "0"
+        binding.questNumber.text = currentQuestion.toString() + "/10"
+        binding.scorePlus.visibility = View.INVISIBLE
     }
 
     private val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {

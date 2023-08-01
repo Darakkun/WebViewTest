@@ -77,4 +77,7 @@
     <string name="plusScore">+ 10 SCORE</string>
     <string name="noScore">+ 0 SCORE</string>
 
+    <string name="tryAgain">Try again!</string>
+    <string name="thanks">Thanks for finishing the test!</string>
+
 </resources>
