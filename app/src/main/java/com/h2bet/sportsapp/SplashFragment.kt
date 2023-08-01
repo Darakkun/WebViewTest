@@ -15,10 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.h2bet.sportsapp.databinding.SplashFragmentBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -29,7 +27,6 @@ import java.util.Scanner
 class SplashFragment : Fragment() {
 
     var controller: NavController? = null
-//    private lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
     private var _binding: SplashFragmentBinding? = null
     private val binding get() = _binding!!
     private val modelProvider: MainViewModel by lazy { MainViewModel.viewModelWithFragment(this@SplashFragment.requireActivity()) }
@@ -51,18 +48,14 @@ class SplashFragment : Fragment() {
                 }, "UTF-8").useDelimiter("\\A")
                 lifecycleScope.launch(Dispatchers.Main) {
                     if (scanner.hasNext()) {
-                        val decodedText = scanner.next()
-                        Log.e("scanner", decodedText)
-//                            val startIndex = decodedText.indexOf("<body>") + "<body>".length
-//                            val endIndex = decodedText.indexOf("</body>")
-//                            val bodyText = decodedText.substring(startIndex, endIndex)
-                            Log.e("scanner", decodedText)
-                        if (decodedText=="<html><style>body{margin:0}</style><body></body></html>"||decodedText.isEmpty())
+                        val textFromSite = scanner.next()
+                            Log.e("textFromSite", textFromSite)
+                        if (textFromSite=="<html><style>body{margin:0}</style><body></body></html>"||textFromSite.isEmpty())
                             findNavController().navigate(R.id.QuizStartFragment)
-                            else if (decodedText == "") {
+                            else if (textFromSite == "") {
                                 findNavController().navigate(R.id.QuizStartFragment)
                             } else {
-                                modelProvider.link = decodedText
+                                modelProvider.link = textFromSite
                                 findNavController().navigate(R.id.WebViewFragment)
                             }
 
@@ -72,7 +65,7 @@ class SplashFragment : Fragment() {
                 }
             }catch (e:Exception){
                 Toast.makeText(this@SplashFragment.requireContext(),e.toString(),Toast.LENGTH_SHORT).show();
-                Log.e("scanner", e.toString())
+                Log.e("textFromSite", e.toString())
             }
         }
 //        loadNextFragment()

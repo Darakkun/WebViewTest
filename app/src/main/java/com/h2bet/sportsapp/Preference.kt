@@ -4,29 +4,22 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object Preference {
-    val COOKIESKEY = "COOKI"
+    val kuki = "COOKI"
 
-    fun getprefer(context: Context): SharedPreferences = context.getSharedPreferences("bykmeker", Context.MODE_PRIVATE)
+    fun getPrefeence(context: Context): SharedPreferences = context.getSharedPreferences("bykmeker", Context.MODE_PRIVATE)
 
-    inline fun SharedPreferences.editMe(operation: (SharedPreferences.Editor) -> Unit) {
+    private inline fun SharedPreferences.editMe(operation: (SharedPreferences.Editor) -> Unit) {
         val editMe = edit()
         operation(editMe)
         editMe.apply()
     }
 
     var SharedPreferences.cokies
-        get() = getString(COOKIESKEY, "xyko")
+        get() = getString(kuki, "xyko")
         set(value) {
             editMe {
-                it.putString(COOKIESKEY, value)
+                it.putString(kuki, value)
             }
         }
 
-    var SharedPreferences.fortuneruri
-        get() = getString("URL", "")
-        set(value) {
-            editMe {
-                it.putString("URL", value)
-            }
-        }
 }

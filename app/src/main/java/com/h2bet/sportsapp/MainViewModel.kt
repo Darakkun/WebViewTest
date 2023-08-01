@@ -19,7 +19,7 @@ class MainViewModel() : ViewModel() {
 
     private lateinit var db: LinkDatabase
 
-    var link: String = "https://dribbble.com/shots"
+    var link: String = ""
 
     private lateinit var linkDao: LinkDao
 //    private lateinit var retrofit: Retrofit

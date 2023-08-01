@@ -83,20 +83,18 @@ class WebViewFragment : Fragment() {
 
         _binding = WebViewFragmentBinding.inflate(inflater, container, false)
         webView = binding.webview
-        sharedPreferences = Preference.getprefer(this@WebViewFragment.requireContext())
-        webView!!.settings.apply {
-            domStorageEnabled = true
-            javaScriptEnabled = true
-            useWideViewPort = true
-            databaseEnabled = true
-            javaScriptCanOpenWindowsAutomatically = true
-            cacheMode = WebSettings.LOAD_DEFAULT
-        }
+        sharedPreferences = Preference.getPrefeence(this@WebViewFragment.requireContext())
+        webView!!.settings.domStorageEnabled= true
+        webView!!.settings.javaScriptEnabled = true
+        webView!!.settings.useWideViewPort = true
+        webView!!.settings.databaseEnabled = true
+        webView!!.settings.javaScriptCanOpenWindowsAutomatically = true
+        webView!!.settings.cacheMode = WebSettings.LOAD_DEFAULT
+
         CookieManager.getInstance().setAcceptCookie(true)
 
         cookieManager.setAcceptCookie(true)
         cookieManager.setAcceptThirdPartyCookies(webView, true);
-
 
         webView!!.webViewClient = WebChekerClient()
         webView!!.webChromeClient=ChromeClient()
@@ -391,55 +389,27 @@ class WebViewFragment : Fragment() {
     }
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {
-                    super.onActivityResult(requestCode, resultCode, data)
-                    return
-                }
-                var results: Array<Uri>? = null
-
-                // Check that the response is a good one
-                if (resultCode == ComponentActivity.RESULT_OK) {
-                    if (data == null) {
-                        // If there is not data, then we may have taken a photo
-                        if (mCameraPhotoPath != null) {
-                            results = arrayOf(Uri.parse(mCameraPhotoPath))
-                        }
-                    } else {
-                        val dataString = data.dataString
-                        if (dataString != null) {
-                            results = arrayOf(Uri.parse(dataString))
-                        }
+            if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {
+                super.onActivityResult(requestCode, resultCode, data)
+                return
+            }
+            var results: Array<Uri>? = null
+            if (resultCode == ComponentActivity.RESULT_OK) {
+                if (data == null) {
+                    // If there is not data, then we may have taken a photo
+                    if (mCameraPhotoPath != null) {
+                        results = arrayOf(Uri.parse(mCameraPhotoPath))
                     }
-                }
-                mFilePathCallback!!.onReceiveValue(results)
-                mFilePathCallback = null
-            } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-                if (requestCode != FILECHOOSER_RESULTCODE || mUploadMessage == null) {
-                    super.onActivityResult(requestCode, resultCode, data)
-                    return
-                }
-                if (requestCode == FILECHOOSER_RESULTCODE) {
-                    if (null == mUploadMessage) {
-                        return
+                } else {
+                    val dataString = data.dataString
+                    if (dataString != null) {
+                        results = arrayOf(Uri.parse(dataString))
                     }
-                    var result: Uri? = null
-                    try {
-                        result = if (resultCode != ComponentActivity.RESULT_OK) {
-                            null
-                        } else {
-
-                            // retrieve from the private variable if the intent is null
-                            if (data == null) mCapturedImageURI else data.data
-                        }
-                    } catch (e: Exception) {
-                    }
-                    mUploadMessage!!.onReceiveValue(result)
-                    mUploadMessage = null
                 }
             }
-            return
-        }catch (e:java.lang.Exception){
+            mFilePathCallback!!.onReceiveValue(results)
+            mFilePathCallback = null
+        } catch (e:java.lang.Exception){
             Toast.makeText(this@WebViewFragment.requireContext(),e.toString(),Toast.LENGTH_SHORT).show();
             Log.e("scanner", e.toString())
         }
