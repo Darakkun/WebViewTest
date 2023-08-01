@@ -28,6 +28,9 @@ class QuizStartFragment : Fragment() {
         binding.tryAgain.setOnClickListener {
             findNavController().navigate(R.id.action_Quiz_Start_Fragment_to_Quiz_Fragment)
         }
+        binding.exit.setOnClickListener{
+            this@QuizStartFragment.requireActivity().finishAndRemoveTask()
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 

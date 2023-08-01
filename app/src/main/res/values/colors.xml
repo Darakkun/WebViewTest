@@ -9,5 +9,8 @@
     <color name="cardStroke">#555FF6</color>
     <color name="textBoxColor">#A2B3FE</color>
     <color name="cardStrokeRed">#ED084C</color>
+    <color name="wrong">#FF0101</color>
+    <color name="correct">#03FF1C</color>
+
 
 </resources>

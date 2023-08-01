@@ -5,13 +5,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.Uri
-import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -22,23 +23,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.CookieManager
-import android.webkit.SslErrorHandler
+import android.webkit.PermissionRequest
+import android.webkit.RenderProcessGoneDetail
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
-import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.h2bet.sportsapp.Preference.cokies
 import com.h2bet.sportsapp.databinding.WebViewFragmentBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,7 +55,8 @@ class WebViewFragment : Fragment() {
 
     private var _binding: WebViewFragmentBinding? = null
     private val modelProvider: MainViewModel by lazy { MainViewModel.viewModelWithFragment(this@WebViewFragment.requireActivity()) }
-
+    private val cookieManager: CookieManager by lazy { CookieManager.getInstance() }
+    private var sharedPreferences: SharedPreferences? = null
     private val binding get() = _binding!!
     private var webView: WebView? = null
     var controller: NavController? = null
@@ -79,31 +83,28 @@ class WebViewFragment : Fragment() {
 
         _binding = WebViewFragmentBinding.inflate(inflater, container, false)
         webView = binding.webview
+        sharedPreferences = Preference.getprefer(this@WebViewFragment.requireContext())
+        webView!!.settings.apply {
+            domStorageEnabled = true
+            javaScriptEnabled = true
+            useWideViewPort = true
+            databaseEnabled = true
+            javaScriptCanOpenWindowsAutomatically = true
+            cacheMode = WebSettings.LOAD_DEFAULT
+        }
+        CookieManager.getInstance().setAcceptCookie(true)
 
-        webView!!.settings.javaScriptEnabled = true
+        cookieManager.setAcceptCookie(true)
+        cookieManager.setAcceptThirdPartyCookies(webView, true);
+
+
         webView!!.webViewClient = WebChekerClient()
         webView!!.webChromeClient=ChromeClient()
-        webView!!.settings.domStorageEnabled = true
-        webView!!.settings.javaScriptCanOpenWindowsAutomatically = true
-
-        webView!!.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-        CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
-        val cookieManager = CookieManager.getInstance()
-        cookieManager.setAcceptCookie(true)
-        webView!!.settings.loadWithOverviewMode = true
-        webView!!.settings.useWideViewPort = true
-        webView!!.settings.databaseEnabled = true
-        webView!!.settings.setSupportZoom(false)
-        webView!!.settings.allowFileAccess = true
-        webView!!.settings.allowContentAccess = true
 //        modelProvider.checkLink()
 
         if (savedInstanceState != null)
             webView?.restoreState(savedInstanceState)
-        webView?.loadUrl(modelProvider.baseUrl)
-//        else modelProvider.link?.let {
-//            webView?.loadUrl(it)
-//        }
+       else webView?.loadUrl(modelProvider.link)
 
         return binding.root
     }
@@ -167,13 +168,47 @@ class WebViewFragment : Fragment() {
 
 
     inner class WebChekerClient: WebViewClient(){
-        override fun onReceivedHttpError(
-            view: WebView,
-            request: WebResourceRequest?,
-            errorResponse: WebResourceResponse
-        ) {
-        controller?.navigate(R.id.QuizStartFragment)
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): Boolean {
+            if (request != null) {
+                view?.loadUrl(request.url.toString())
+            }
+            return false
         }
+        override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
+            view.loadUrl(url!!)
+            return false
+        }
+
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+            cookieManager.setCookie(url, sharedPreferences!!.cokies)
+        }
+
+        override fun onRenderProcessGone(
+            view: WebView?,
+            detail: RenderProcessGoneDetail?
+        ): Boolean {
+            binding.protScreen.visibility=View.INVISIBLE
+            return super.onRenderProcessGone(view, detail)
+        }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            binding.protScreen.visibility=View.INVISIBLE
+            super.onPageFinished(view, url)
+            CookieManager.getInstance().flush();
+            sharedPreferences!!.cokies = cookieManager.getCookie(url)
+        }
+//        override fun onReceivedHttpError(
+//            view: WebView,
+//            request: WebResourceRequest?,
+//            errorResponse: WebResourceResponse
+//        ) {
+//            if(errorResponse.getStatusCode().toString()=="404")
+//        controller?.navigate(R.id.QuizStartFragment)
+//        }
 
 //        override fun onReceivedError(
 //            view: WebView?,
@@ -251,7 +286,7 @@ class WebViewFragment : Fragment() {
                         arrayOf<String>(Manifest.permission.READ_EXTERNAL_STORAGE),
                         41
                     )
-                    return false
+                    return true
                 }
             }
 
@@ -270,6 +305,7 @@ class WebViewFragment : Fragment() {
         // openFileChooser for Android < 3.0
         @JvmOverloads
         fun openFileChooser(uploadMsg: ValueCallback<Uri?>?, acceptType: String? = "") {
+
             mUploadMessage = uploadMsg
             // Create AndroidExampleFolder at sdcard
             // Create AndroidExampleFolder at sdcard
@@ -320,19 +356,19 @@ class WebViewFragment : Fragment() {
             openFileChooser(uploadMsg, acceptType)
         }
 
-//        override fun onPermissionRequest(request: PermissionRequest) {
-//            val permissionLauncher = registerForActivityResult(
-//                ActivityResultContracts.RequestPermission()
-//            ) { isGranted ->
-//                if (isGranted) {
-//                    request.grant(request.resources)
-//                }
-//                else {
-//                    // Do otherwise
-//                }
-//            }
-//                permissionLauncher.launch(android.Manifest.permission.CAMERA)
-//        }
+        override fun onPermissionRequest(request: PermissionRequest) {
+            val permissionLauncher = registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted ->
+                if (isGranted) {
+                    request.grant(request.resources)
+                }
+                else {
+                    // Do otherwise
+                }
+            }
+                permissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
 
 
 
@@ -354,54 +390,59 @@ class WebViewFragment : Fragment() {
         )
     }
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {
-                super.onActivityResult(requestCode, resultCode, data)
-                return
-            }
-            var results: Array<Uri>? = null
-
-            // Check that the response is a good one
-            if (resultCode == ComponentActivity.RESULT_OK) {
-                if (data == null) {
-                    // If there is not data, then we may have taken a photo
-                    if (mCameraPhotoPath != null) {
-                        results = arrayOf(Uri.parse(mCameraPhotoPath))
-                    }
-                } else {
-                    val dataString = data.dataString
-                    if (dataString != null) {
-                        results = arrayOf(Uri.parse(dataString))
-                    }
-                }
-            }
-            mFilePathCallback!!.onReceiveValue(results)
-            mFilePathCallback = null
-        } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            if (requestCode != FILECHOOSER_RESULTCODE || mUploadMessage == null) {
-                super.onActivityResult(requestCode, resultCode, data)
-                return
-            }
-            if (requestCode == FILECHOOSER_RESULTCODE) {
-                if (null == mUploadMessage) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (requestCode != INPUT_FILE_REQUEST_CODE || mFilePathCallback == null) {
+                    super.onActivityResult(requestCode, resultCode, data)
                     return
                 }
-                var result: Uri? = null
-                try {
-                    result = if (resultCode != ComponentActivity.RESULT_OK) {
-                        null
-                    } else {
+                var results: Array<Uri>? = null
 
-                        // retrieve from the private variable if the intent is null
-                        if (data == null) mCapturedImageURI else data.data
+                // Check that the response is a good one
+                if (resultCode == ComponentActivity.RESULT_OK) {
+                    if (data == null) {
+                        // If there is not data, then we may have taken a photo
+                        if (mCameraPhotoPath != null) {
+                            results = arrayOf(Uri.parse(mCameraPhotoPath))
+                        }
+                    } else {
+                        val dataString = data.dataString
+                        if (dataString != null) {
+                            results = arrayOf(Uri.parse(dataString))
+                        }
                     }
-                } catch (e: Exception) {
                 }
-                mUploadMessage!!.onReceiveValue(result)
-                mUploadMessage = null
+                mFilePathCallback!!.onReceiveValue(results)
+                mFilePathCallback = null
+            } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
+                if (requestCode != FILECHOOSER_RESULTCODE || mUploadMessage == null) {
+                    super.onActivityResult(requestCode, resultCode, data)
+                    return
+                }
+                if (requestCode == FILECHOOSER_RESULTCODE) {
+                    if (null == mUploadMessage) {
+                        return
+                    }
+                    var result: Uri? = null
+                    try {
+                        result = if (resultCode != ComponentActivity.RESULT_OK) {
+                            null
+                        } else {
+
+                            // retrieve from the private variable if the intent is null
+                            if (data == null) mCapturedImageURI else data.data
+                        }
+                    } catch (e: Exception) {
+                    }
+                    mUploadMessage!!.onReceiveValue(result)
+                    mUploadMessage = null
+                }
             }
+            return
+        }catch (e:java.lang.Exception){
+            Toast.makeText(this@WebViewFragment.requireContext(),e.toString(),Toast.LENGTH_SHORT).show();
+            Log.e("scanner", e.toString())
         }
-        return
     }
 
     companion object {

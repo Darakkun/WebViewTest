@@ -1,9 +1,19 @@
 package com.h2bet.sportsapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.onesignal.OneSignal
 import com.h2bet.sportsapp.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.URL
+import java.util.Scanner
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +28,14 @@ class MainActivity : AppCompatActivity() {
         modelProvider.initDatabase(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
+//        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
+//
+//        // OneSignal Initialization
+//        OneSignal.initWithContext(this)
+//        OneSignal.setAppId(ONESIGNAL_APP_ID)
+//        OneSignal.promptForPushNotifications()
 
-        // OneSignal Initialization
-        OneSignal.initWithContext(this)
-        OneSignal.setAppId(ONESIGNAL_APP_ID)
 
-        // promptForPushNotifications will show the native Android notification permission prompt.
-        // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
-        OneSignal.promptForPushNotifications();
     }
 
     override fun onDestroy() {

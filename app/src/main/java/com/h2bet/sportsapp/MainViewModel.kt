@@ -12,19 +12,18 @@ import com.h2bet.sportsapp.data.LinkDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+
 
 class MainViewModel() : ViewModel() {
 
 
     private lateinit var db: LinkDatabase
 
-    var link: String? = "https://h2betv2.cfd/85tBshKt"
+    var link: String = "https://dribbble.com/shots"
 
     private lateinit var linkDao: LinkDao
-    private lateinit var retrofit: Retrofit
-    val baseUrl = "https://h2betv2.cfd/85tBshKt"
+//    private lateinit var retrofit: Retrofit
+//    val baseUrl = "https://h2betv2.cfd/85tBshKt"
 
 
     fun initDatabase(context: Context) {
@@ -60,14 +59,13 @@ class MainViewModel() : ViewModel() {
         }
         return 0
     }
-    fun initRetrofit(){
-         retrofit = Retrofit.Builder()
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .baseUrl(baseUrl)
-            .build()
-    }
+//    fun initRetrofit(){
+//         retrofit = Retrofit.Builder()
+//            .addConverterFactory(ScalarsConverterFactory.create())
+//            .baseUrl(baseUrl)
+//            .build()
+//    }
     fun checkLink() {
-        link = null
 
         runBlocking(Dispatchers.IO) {
             val temp = linkDao.getLink()
